@@ -61,7 +61,7 @@ def get_lgl_contact_info():
             phones.add(phone['number'])
 
         time.sleep(1.5) # Avoid the LGL API rate limit
-    return emails, phones
+    return names, emails, phones
 
 
 def _get_constituents():
@@ -74,14 +74,16 @@ def _get_constituents():
         a list of dictionaries with metadata about each constituent
     """
     response = _lgl_get('constituents')
-    next_url = response['next_url']
+    next_url = response['next_link']
     constituents = response['items']
     while next_url:
         time.sleep(1.5) # Avoid the LGL API rate limit
         url = next_url.split('/')[-1] # Remove the base url
         response = _lgl_get(url)
-        next_url = response['next_url']
         constituents.extend(response['items'])
+        if 'next_link' not in response:
+            break
+        next_url = response['next_link']
     return constituents
 
 
