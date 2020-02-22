@@ -141,9 +141,9 @@ def get_lgl_contact_info():
             emails.add(email['address'])
 
         for phone in constituent['phone_numbers']:
-            phones.add(phone['number'].replace('-',''))
+            phones.add(phone['number'].replace('-', ''))
 
-        time.sleep(1.5) # Avoid the LGL API rate limit
+        time.sleep(1.5)  # Avoid the LGL API rate limit
     return names, emails, phones
 
 
@@ -160,8 +160,8 @@ def _get_constituents():
     next_url = response['next_link']
     constituents = response['items']
     while next_url:
-        time.sleep(1.5) # Avoid the LGL API rate limit
-        url = next_url.split('/')[-1] # Remove the base url
+        time.sleep(1.5)  # Avoid the LGL API rate limit
+        url = next_url.split('/')[-1]  # Remove the base url
         response = _lgl_get(url)
         constituents.extend(response['items'])
         if 'next_link' not in response:
