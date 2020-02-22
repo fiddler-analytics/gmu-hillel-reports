@@ -87,11 +87,11 @@ def _build_report_rows(heart_contacts, names, emails, phones):
     report_rows = list()
     for contact in heart_contacts:
         missing = set()
+        if (contact['FirstName'], contact['LastName']) not in names:
+            missing.add('Name')
         for field in HEART_CONTACT_FIELDS:
             if not contact[field]:
                 continue
-            if (contact['FirstName'], contact['LastName']) not in names:
-                missing.add('Name')
             if 'email' in field.lower() and contact[field] not in emails:
                 missing.add('Email')
             if 'phone' in field.lower() and contact[field] not in phones:
