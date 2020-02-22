@@ -87,7 +87,9 @@ def _build_report_rows(heart_contacts, names, emails, phones):
     report_rows = list()
     for contact in heart_contacts:
         missing = set()
-        for field in contact:
+        for field in HEART_CONTACT_FIELDS:
+            if not contact[field]:
+                continue
             if (contact['FirstName'], contact['LastName']) not in names:
                 missing.add('Name')
             if 'email' in field.lower() and contact[field] not in emails:
@@ -139,7 +141,7 @@ def get_lgl_contact_info():
             emails.add(email['address'])
 
         for phone in constituent['phone_numbers']:
-            phones.add(phone['number'])
+            phones.add(phone['number'].replace('-',''))
 
         time.sleep(1.5) # Avoid the LGL API rate limit
     return names, emails, phones
