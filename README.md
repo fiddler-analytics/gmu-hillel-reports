@@ -1,5 +1,7 @@
 # GMU Hillel Reports
 
+[![Run on Repl.it](https://repl.it/badge/github/fiddler-analytics/gmu-hillel-reports)](https://repl.it/github/fiddler-analytics/gmu-hillel-reports)
+
 This repo contains scripts for running the following process for GMU Hillel:
 
 1. Pull contact information from HEART CRM
